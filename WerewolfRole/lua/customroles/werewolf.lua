@@ -122,7 +122,7 @@ if SERVER then
 
     hook.Add("TTTSpeedMultiplier", "WerewolfSlow", function(ply, mults)
         if ply:IsActiveWerewolf() and ply:IsRoleActive() then
-            table.Insert(mults, GetConVar("ttt_werewolf_speed_penalty"):GetFloat())
+            table.insert(mults, GetConVar("ttt_werewolf_speed_penalty"):GetFloat())
         end
     end)
 
