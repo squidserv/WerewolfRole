@@ -69,6 +69,47 @@ RegisterRole(ROLE)
 if SERVER then
     AddCSLuaFile()
 
+    --Activate if they spawn as the only T
+    hook.Add("TTTBeginRound", "ActivateWerewolf",function()
+        local traitors = 0
+        local werewolf
+        for _, ply in ipairs(player.GetAll()) do
+            if IsPlayer(ply) and not ply:IsSpec() and ply:Alive() then
+                if ply:IsTraitorTeam() then traitors = traitors + 1 end
+                if ply:IsActiveWerewolf() then
+                    werewolf = ply
+                    if ply:IsRoleActive() and ply:GetCredits() > 0 then
+                        ply:SetCredits(0)
+                        break
+                    end
+                end
+            end
+        end
+
+        if traitors <= 1 and werewolf ~= nil and not werewolf:IsRoleActive() then
+            werewolf:SetNWBool("WerewolfActive", true)
+            werewolf:SetCredits(0)
+
+            werewolf:PrintMessage(HUD_PRINTTALK, "You transform into a rampaging " .. ROLE_STRINGS_EXT[ROLE_WEREWOLF] .. "!")
+            werewolf:PrintMessage(HUD_PRINTCENTER, "You transform into a rampaging " .. ROLE_STRINGS_EXT[ROLE_WEREWOLF] .. "!")
+
+            if GetConVar("ttt_werewolf_announce"):GetBool() then
+                for _, p in ipairs(player.GetAll()) do
+                    if p ~= werewolf and p:Alive() and not p:IsSpec() then
+                        p:PrintMessage(HUD_PRINTTALK, "The last traitor transforms into a rampaging " .. ROLE_STRINGS_EXT[ROLE_WEREWOLF] .. "!")
+                        p:PrintMessage(HUD_PRINTCENTER, "The last traitor transforms into a rampaging " .. ROLE_STRINGS_EXT[ROLE_WEREWOLF] .. "!")
+                    end
+                end
+            end
+
+            werewolf:SetMaxHealth(werewolf:GetMaxHealth() * GetConVar("ttt_werewolf_heal_bonus"):GetFloat())
+
+            if GetConVar("ttt_werewolf_full_heal"):GetBool() then
+                werewolf:SetHealth(werewolf:GetMaxHealth())
+            end
+        end
+    end)
+
     hook.Add("TTTCanIdentifyCorpse", "ActivatedWerewolfIdentify", function(ply, corpse, was_traitor)
         if ply:IsActiveWerewolf() and ply:IsRoleActive() then
             if corpse:GetCredits() > 0 then
