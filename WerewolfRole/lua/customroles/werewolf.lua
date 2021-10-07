@@ -145,7 +145,7 @@ end
 if CLIENT then
     hook.Add("TTTTutorialRoleText", "WerewolfTutorialRoleText", function(role, titleLabel, roleIcon)
         if role == ROLE_WEREWOLF then
-            local roleColorT = ROLE_COLORS(ROLE_TRAITOR)
+            local roleColorT = ROLE_COLORS[ROLE_TRAITOR]
             local html = "The " .. ROLE_STRINGS[ROLE_WEREWOLF] .. " is an <span style='color: rgb(" .. roleColorT.r .. ", " .. roleColorT.g .. ", " .. roleColorT.b .. ")'>traitor role</span> who rampages when they are the last <span style='color: rgb(" .. roleColorT.r .. ", " .. roleColorT.g .. ", " .. roleColorT.b .. ")'>traitor</span>."
             html = html .. "<ul style='position: relative; top: -15px;'>"
             html = html .. "<li> When the ".. ROLE_STRINGS[ROLE_WEREWOLF] .." rampages it gets increased bullet damage and health but gets a reduced walking speed and can no longer get credits."
