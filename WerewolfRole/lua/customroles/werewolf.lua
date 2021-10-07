@@ -41,11 +41,11 @@ end
 ROLE.convars = {}
 table.insert(ROLE.convars, {
     cvar = "ttt_werewolf_damage_bonus",
-    type = ROLE_CONVAR_TYPE_FLOAT
+    type = ROLE_CONVAR_TYPE_NUM
 })
 table.insert(ROLE.convars, {
     cvar = "ttt_werewolf_damage_reduction",
-    type = ROLE_CONVAR_TYPE_FLOAT
+    type = ROLE_CONVAR_TYPE_NUM
 })
 table.insert(ROLE.convars, {
     cvar = "ttt_werewolf_announce",
@@ -57,11 +57,11 @@ table.insert(ROLE.convars, {
 })
 table.insert(ROLE.convars, {
     cvar = "ttt_werewolf_heal_bonus",
-    type = ROLE_CONVAR_TYPE_FLOAT
+    type = ROLE_CONVAR_TYPE_NUM
 })
 table.insert(ROLE.convars, {
     cvar = "ttt_werewolf_damage_reduction",
-    type = ROLE_CONVAR_TYPE_FLOAT
+    type = ROLE_CONVAR_TYPE_NUM
 })
 
 RegisterRole(ROLE)
